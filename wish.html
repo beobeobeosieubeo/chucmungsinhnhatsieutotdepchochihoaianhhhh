@@ -7,12 +7,8 @@
 <style>
 body {
   margin: 0;
-  background: #e9e4da; /* nền nhẹ cho đẹp */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   overflow: hidden;
+  background: black;
 }
 
 /* container */
@@ -20,21 +16,36 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
+  animation: fadeIn 1.5s ease;
 }
 
-/* ảnh KHÔNG zoom */
+/* fade cinematic */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ảnh */
 img {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* hiện full ảnh */
+  object-fit: contain;
 }
 
-/* overlay nhẹ cho đẹp */
+/* zoom nhẹ */
+
+
+/* overlay */
 .overlay {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.1);
+  background: rgba(0,0,0,0.2);
+}
+
+/* zoom khi click */
+.zoomed {
+  transform: scale(1.3) !important;
 }
 
 /* nút nhạc */
@@ -43,25 +54,54 @@ img {
   bottom: 20px;
   right: 20px;
   padding: 12px 18px;
-  border-radius: 25px;
+  border-radius: 30px;
   border: none;
   background: rgba(0,0,0,0.6);
   color: white;
   font-size: 16px;
   cursor: pointer;
+  backdrop-filter: blur(5px);
 }
-</style>
 
+/* particles */
+.sparkle {
+  position: absolute;
+  font-size: 18px;
+  animation: float 4s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* emoji nổ */
+.boom {
+  position: absolute;
+  font-size: 24px;
+  animation: boom 1s forwards;
+}
+
+@keyframes boom {
+  to {
+    transform: translateY(-120px);
+    opacity: 0;
+  }
+}
+
+</style>
 </head>
 
 <body>
 
 <div class="container">
+
   <img id="mainImg" src="wish.jpg">
+
   <div class="overlay"></div>
+
 </div>
 
-<!-- nhạc -->
 <audio id="music" loop>
   <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3">
 </audio>
@@ -69,10 +109,32 @@ img {
 <button id="musicBtn">🎵 Bật nhạc</button>
 
 <script>
+const img = document.getElementById("mainImg");
 const music = document.getElementById("music");
 const btn = document.getElementById("musicBtn");
 
-// bật/tắt nhạc
+// click zoom
+img.onclick = function(e) {
+  img.classList.toggle("zoomed");
+
+  // boom emoji 💥
+  for(let i=0;i<10;i++){
+    let b = document.createElement("div");
+    b.className = "boom";
+    b.innerHTML = ["✨","🔥","💥"][Math.floor(Math.random()*3)];
+    b.style.left = e.clientX + "px";
+    b.style.top = e.clientY + "px";
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1000);
+  }
+}
+
+// double click zoom mạnh hơn
+img.ondblclick = function() {
+  img.style.transform = "scale(1.6)";
+}
+
+// nhạc
 btn.onclick = function() {
   if (music.paused) {
     music.play();
@@ -87,6 +149,18 @@ btn.onclick = function() {
 document.body.addEventListener("click", () => {
   music.play();
 }, { once: true });
+
+// tạo sparkle ✨
+setInterval(()=>{
+  let s = document.createElement("div");
+  s.className = "sparkle";
+  s.innerHTML = "✨";
+  s.style.left = Math.random()*100 + "vw";
+  s.style.top = "100vh";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),4000);
+},300);
+
 </script>
 
 </body>
