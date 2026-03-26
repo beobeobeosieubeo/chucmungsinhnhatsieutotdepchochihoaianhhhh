@@ -8,7 +8,7 @@
 body {
   margin: 0;
   overflow: hidden;
-  background: black;
+  background: #e9e4da;
 }
 
 /* container */
@@ -19,21 +19,18 @@ body {
   animation: fadeIn 1.5s ease;
 }
 
-/* fade cinematic */
+/* fade */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* ảnh */
+/* ❌ KHÔNG zoom nữa */
 img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain; /* hiện full ảnh */
 }
-
-/* zoom nhẹ */
-
 
 /* overlay */
 .overlay {
@@ -41,11 +38,6 @@ img {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.2);
-}
-
-/* zoom khi click */
-.zoomed {
-  transform: scale(1.3) !important;
 }
 
 /* nút nhạc */
@@ -58,12 +50,10 @@ img {
   border: none;
   background: rgba(0,0,0,0.6);
   color: white;
-  font-size: 16px;
   cursor: pointer;
-  backdrop-filter: blur(5px);
 }
 
-/* particles */
+/* sparkle */
 .sparkle {
   position: absolute;
   font-size: 18px;
@@ -75,7 +65,7 @@ img {
   to { transform: translateY(-100vh); opacity: 0; }
 }
 
-/* emoji nổ */
+/* boom */
 .boom {
   position: absolute;
   font-size: 24px;
@@ -88,18 +78,15 @@ img {
     opacity: 0;
   }
 }
-
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
-
   <img id="mainImg" src="wish.jpg">
-
   <div class="overlay"></div>
-
 </div>
 
 <audio id="music" loop>
@@ -113,11 +100,8 @@ const img = document.getElementById("mainImg");
 const music = document.getElementById("music");
 const btn = document.getElementById("musicBtn");
 
-// click zoom
+// 💥 click vẫn nổ emoji
 img.onclick = function(e) {
-  img.classList.toggle("zoomed");
-
-  // boom emoji 💥
   for(let i=0;i<10;i++){
     let b = document.createElement("div");
     b.className = "boom";
@@ -129,12 +113,7 @@ img.onclick = function(e) {
   }
 }
 
-// double click zoom mạnh hơn
-img.ondblclick = function() {
-  img.style.transform = "scale(1.6)";
-}
-
-// nhạc
+// 🎵 nhạc
 btn.onclick = function() {
   if (music.paused) {
     music.play();
@@ -145,12 +124,12 @@ btn.onclick = function() {
   }
 }
 
-// auto play sau lần click đầu
+// auto play sau click
 document.body.addEventListener("click", () => {
   music.play();
 }, { once: true });
 
-// tạo sparkle ✨
+// ✨ sparkle giữ nguyên
 setInterval(()=>{
   let s = document.createElement("div");
   s.className = "sparkle";
