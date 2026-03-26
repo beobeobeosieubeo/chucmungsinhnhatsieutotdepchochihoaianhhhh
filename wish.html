@@ -111,8 +111,9 @@ const music = document.getElementById("music");
 const btn = document.getElementById("musicBtn");
 
 // click zoom
-img.onclick = function(e) {
-  img.classList.toggle("zoomed");
+img.ondblclick = function() {
+  img.style.transform = "scale(1.6)";
+}
 
   // boom emoji 💥
   for(let i=0;i<10;i++){
@@ -127,9 +128,7 @@ img.onclick = function(e) {
 }
 
 // double click zoom mạnh hơn
-img.ondblclick = function() {
-  img.style.transform = "scale(1.6)";
-}
+
 
 // nhạc
 btn.onclick = function() {
