@@ -21,13 +21,14 @@ body {
 /* ảnh KHÔNG BAO GIỜ ZOOM */
 img {
   width: 100%;
-  height: 100%;
+  height: 100vh;
   object-fit: cover;
-  object-position: center;
 }
-  @media (max-width: 768px) {
+
+/* 📱 nếu là điện thoại (màn dọc) */
+@media (max-width: 768px) {
   img {
-    object-fit: cover;
+    object-fit: contain;
     background: #e9e4da;
   }
 }
