@@ -5,17 +5,49 @@
   <title>Happy Birthday</title>
 
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background: url("background.jpg") no-repeat center;
-      background-size: cover;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+  <body>
 
+<div class="container">
+  <img src="background.jpg">
+  
+  <button class="btn" onclick="goNext()">🎁 MỞ RA NÀO</button>
+</div>
+
+</body>
+    body {
+  margin: 0;
+  background: #e9e4da;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+/* giống trang wish */
+img {
+  width: 100%;
+  height: 100vh;
+  object-fit: contain;
+  background: #e9e4da;
+}
+
+/* nút */
+.btn {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 18px 40px;
+  font-size: 20px;
+  border-radius: 30px;
+  border: none;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  cursor: pointer;
+}
     /* overlay làm nền tối nhẹ cho nổi nút */
     .overlay {
       position: absolute;
